@@ -1,4 +1,5 @@
 .idea/
-server/golang/.idea/
+server/golang/.idea
+server/golang/bin/*
 frontend/.idea/
 frontend/node_modules/
