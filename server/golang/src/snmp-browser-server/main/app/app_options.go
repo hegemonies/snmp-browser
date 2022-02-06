@@ -7,6 +7,7 @@ import (
 	"golang/src/snmp-browser-server/main/constants"
 	"golang/src/snmp-browser-server/main/snmp"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -27,6 +28,10 @@ type Options struct {
 
 	HttpHostname string
 	HttpPort     int
+}
+
+func (options *Options) GetHttpServerUrl() string {
+	return options.HttpHostname + ":" + strconv.Itoa(options.HttpPort)
 }
 
 func NewOptions() *Options {
@@ -110,7 +115,7 @@ func (options *Options) FillFromCommandLine() {
 	flag.BoolVar(&verbose, constants.Verbose, false, constants.VerboseHelp)
 
 	var httpHostname string
-	flag.StringVar(&httpHostname, constants.HttpServerHostname, "127.0.0.1", constants.HttpServerHostnameHelp)
+	flag.StringVar(&httpHostname, constants.HttpServerHostname, "0.0.0.0", constants.HttpServerHostnameHelp)
 
 	var httpPort int
 	flag.IntVar(&httpPort, constants.HttpServerPort, 7000, constants.HttpServerPortHelp)

@@ -17,3 +17,9 @@ export const snmpPortDefault = 161;
 export const snmpVersionDefault = SnmpVersion.V2C;
 export const snmpTimeoutDefault = 5 // sec
 export const snmpRetriesDefault = 0
+
+let baseApiUrl = window.location.href;
+
+if (process.env.REACT_APP_ENV === "dev") {
+    baseApiUrl = 'http://' + process.env.REACT_APP_API_URL
+}

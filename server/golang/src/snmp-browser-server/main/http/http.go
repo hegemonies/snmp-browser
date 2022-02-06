@@ -2,15 +2,15 @@ package http
 
 import (
 	"encoding/json"
-	"github.com/rs/cors"
 	"golang/src/snmp-browser-server/main/app"
 	"golang/src/snmp-browser-server/main/constants"
 	"golang/src/snmp-browser-server/main/dto"
 	"golang/src/snmp-browser-server/main/snmp"
 	"log"
 	"net/http"
-	"strconv"
 	"time"
+
+	"github.com/rs/cors"
 
 	"github.com/gorilla/websocket"
 )
@@ -29,14 +29,17 @@ func Handle(options *app.Options) {
 	mux.HandleFunc("/snmp/get", handleSnmpGet)
 	mux.HandleFunc("/snmp/walk", handleSnmpWalk)
 	mux.HandleFunc("/ws", handleWebsocket)
+	mux.Handle("/", http.FileServer(http.Dir("./frontend")))
 
 	// cors.Default() setup the middleware with default options being
 	// all origins accepted with simple methods (GET, POST). See
 	// documentation below for more options.
 	handler := cors.Default().Handler(mux)
 
-	log.Printf("start listen on %s", options.HttpHostname+":"+strconv.Itoa(options.HttpPort))
-	log.Fatal(http.ListenAndServe(options.HttpHostname+":"+strconv.Itoa(options.HttpPort), handler))
+	url := options.GetHttpServerUrl()
+	log.Printf("start listen api on http://%s", url)
+	log.Printf("start frontend on http://localhost:%v/", options.HttpPort)
+	log.Fatal(http.ListenAndServe(url, handler))
 }
 
 func handleSnmpGet(writer http.ResponseWriter, request *http.Request) {
