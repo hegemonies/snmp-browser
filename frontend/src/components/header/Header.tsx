@@ -1,4 +1,5 @@
 import {Text} from "@yandex/ui/Text/bundle";
+import './Header.sass'
 
 const Header = () => {
     return (

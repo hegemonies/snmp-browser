@@ -13,11 +13,9 @@ import './SearchForm.sass';
 import {RadioButton} from '@yandex/ui/RadioButton/desktop/bundle'
 import httpSnmpRequest from "../../api/api";
 import {ISearchResults} from "../../dto/ISearchResult";
-import {Divider} from "@yandex/ui/Divider";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Text} from "@yandex/ui/Text/bundle";
-import {Spin} from '@yandex/ui/Spin/desktop/bundle'
 
 const SearchForm = (props: { onSubmit: (results: ISearchResults) => void }) => {
 
@@ -109,8 +107,6 @@ const SearchForm = (props: { onSubmit: (results: ISearchResults) => void }) => {
         <div className="search-form">
 
             <ToastContainer/>
-
-            <Divider color={"#6768ab"} size={2}/>
 
             <div className="search-form-row">
                 <Text typography={"control-m"} color={"secondary"}>Target hostname</Text>
@@ -251,7 +247,6 @@ const SearchForm = (props: { onSubmit: (results: ISearchResults) => void }) => {
                     type={"number"}
                     min={0}
                     max={15}
-                    hasClear={true}
                 />
             </div>
 
@@ -264,11 +259,10 @@ const SearchForm = (props: { onSubmit: (results: ISearchResults) => void }) => {
                     width="auto"
                     className="search-form-button"
                     onClick={() => sendRequest()}
+                    progress={searchInProgress}
                 >
                     Search
                 </Button>
-
-                <Spin progress={searchInProgress} view="default" size="m"/>
             </div>
         </div>
     )

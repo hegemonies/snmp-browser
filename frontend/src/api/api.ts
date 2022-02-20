@@ -1,9 +1,9 @@
 import {ISearchForm} from "../dto/ISearchForm";
 import {ISearchResults} from "../dto/ISearchResult";
+import baseApiUrl from "../const/constants";
 
 const httpSnmpRequest = (request: ISearchForm): Promise<ISearchResults> => {
-    // const url = window.location.href + "snmp/" + request.method
-    const url = "http://127.0.0.1:7000/snmp/" + request.method;
+    const url = baseApiUrl + "/snmp/" + request.method
 
     const requestHeaders: HeadersInit = new Headers();
     requestHeaders.set('Content-Type', 'application/json');

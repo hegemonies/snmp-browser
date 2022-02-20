@@ -15,11 +15,13 @@ export const oidsDefault = ["1.3.6.1.2.1.1.5.0"];
 export const communitesDefault = ["public"];
 export const snmpPortDefault = 161;
 export const snmpVersionDefault = SnmpVersion.V2C;
-export const snmpTimeoutDefault = 5 // sec
-export const snmpRetriesDefault = 0
+export const snmpTimeoutDefault = 5; // sec
+export const snmpRetriesDefault = 0;
 
 let baseApiUrl = window.location.href;
 
 if (process.env.REACT_APP_ENV === "dev") {
-    baseApiUrl = 'http://' + process.env.REACT_APP_API_URL
+    baseApiUrl = 'http://' + process.env.REACT_APP_API_URL;
 }
+
+export default baseApiUrl;
