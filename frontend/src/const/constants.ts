@@ -10,7 +10,7 @@ export enum SnmpVersion {
 }
 
 export const snmpMethodDefault = SnmpMethod.GET;
-export const targetHostnameDefault = "10.24.16.69";
+export const targetHostnameDefault = "172.24.0.5";
 export const oidsDefault = ["1.3.6.1.2.1.1.5.0"];
 export const communitesDefault = ["public"];
 export const snmpPortDefault = 161;

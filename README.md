@@ -1,93 +1,158 @@
 # snmp-browser
 
+- [snmp-browser](#snmp-browser)
+  - [Описание](#описание)
+  - [Цели](#цели)
+  - [Как собрать](#как-собрать)
+  - [Встроенная помощь в запуске](#встроенная-помощь-в-запуске)
+  - [Как запустить](#как-запустить)
+    - [Web](#web)
+    - [CLI](#cli)
 
+## Описание
 
-## Getting started
+snmp-browser - это приложение предназначенный для быстрого и легкого тестирования SNMP через cli или web интерфейс.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+[Техническое задание бэкенда](server/technical_specification.md)
+[README фронтенда](frontend/README.md)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Цели
 
-## Add your files
+- [x] Поддержка SNMP GET в cli интерфейсе
+- [x] Поддержка SNMP GET в web интерфейсе
+- [x] Поддержка SNMP WALK в cli интерфейсе
+- [x] Поддержка SNMP WALK в web интерфейсе
+- [x] Поддержка SNMP Version 2c в cli и web интерфейсах
+- [x] Поддержка мульти SNMP OID'ов в cli и web интерфейсах
+- [x] Поддержка мульти SNMP Community в cli и web интерфейсах
+- [x] Поддержка таймаутов запросов в cli и web интерфейсах
+- [x] Поддержка повторных запросов в cli и web интерфейсах
+- [x] Поддержка HTTP протокола в web интерфейсе
+- [ ] Поддержка WebSocket протокола в web интерфейсе
+- [ ] Поддержка сортировки таблицы в web интерфейсе
+- [ ] Поддержка пагинации таблицы в web интерфейсе
+- [ ] Поддержка вывода времени выполнения запроса в web интерфейсе
+- [ ] Поддержка адаптивного web интерфейса
+- [ ] Поддержка SNMP TRUP
+- [ ] Поддержка SNMP SET команды
 
-- [ ] [Create](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## Как собрать
 
+Чтобы собрать проект все в одном (фронтенд и бэкенд) в докере:
+
+```bash
+make build-all-docker
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/hegemonies/snmp-browser.git
-git branch -M main
-git push -uf origin main
+
+Чтобы собрать все в одном (фронтенд и бэкенд):
+```bash
+make build-all
 ```
 
-## Integrate with your tools
+Чтобы собрать только бэкенд:
 
-- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://gitlab.com/hegemonies/snmp-browser/-/settings/integrations)
+```bash
+make -C server/golang build
+```
 
-## Collaborate with your team
+Чтобы собрать только бэкенд в docker:
 
-- [ ] [Invite team members and collaborators](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+```bash
+make -C server/golang build-docker-image
+```
 
-## Test and Deploy
+Чтобы собрать только фронтенд:
 
-Use the built-in continuous integration in GitLab.
+```bash
+make -C frontend build
+```
 
-- [ ] [Get started with GitLab CI/CD](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://gitlab.com/-/experiment/new_project_readme_content:7a66cacebf81abc5d5bc46b5d10b7b37?https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+Чтобы очистить файлы сборки и временные файлы:
 
-***
+```bash
+make clean
+```
+## Встроенная помощь в запуске
 
-# Editing this README
+Команда:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com) for this template.
+```bash
+docker run -it --rm hegemonies/snmp-browser:latest -help
+```
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Ответ:
 
-## Name
-Choose a self-explaining name for your project.
+```bash
+Help:
+  -cli
+    	set cli mode; app mode may be are cli or http; by default is cli
+  -communities string
+    	set SNMP communities; example: 'public,private'; default is public (default "public")
+  -get
+    	set SNMP get method
+  -help
+    	print help
+  -host string
+    	set ip/hostname
+  -http
+    	set http mode; app mode may be are cli or http; by default is cli
+  -oids string
+    	set SNMP oids; example: '1.3.6.1.2.1.2.2.1.10,1.3.6.1.2.1.2.2.1.15'
+  -port int
+    	set SNMP port; default is 161 (default 161)
+  -retries int
+    	set number of retries request; default is 3
+  -serverhost string
+    	set up of http server hostname (default "0.0.0.0")
+  -serverport int
+    	set up of http server port (default 7000)
+  -timeout int
+    	set timeout request in sec; default is 5 sec (default 5)
+  -verbose
+    	print arguments
+  -version string
+    	set SNMP version; example: 1 or 2c; default is 2c (default "2c")
+  -walk
+    	set SNMP walk method
+Examples:
+CLI:
+	snmp-browser -get -host 1.1.1.1 -oids 1.3.6.1.2.1.1.5.0
+	snmp-browser -get -host 1.1.1.1 -oids 1.3.6.1.2.1.1.1.0,1.3.6.1.2.1.1.4.0,1.3.6.1.2.1.1.3.0
+	snmp-browser -get -host 1.1.1.1 -oids 1.3.6.1.2.1.1.5.0 -port 161 -retries 3 -timeout 10 -verbose -version 2c
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+	snmp-browser -walk -host 10.24.16.69 -oids 1.3.6.1.2.1.2.2.1.5
+	snmp-browser -walk -host 10.24.16.69 -oids 1.3.6.1.2.1.2.2.1.5,1.3.6.1.2.1.31.1.1.1.15
+```
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## Как запустить
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+### Web
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+Запуск *http mode* в docker:
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+```bash
+docker run -it --rm -p 7000:7000 hegemonies/snmp-browser:latest -http
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Запуск *http mode* нативно:
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+```bash
+/usr/local/bin/snmp-browser -http
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+или
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+```bash
+/usr/local/bin/sb -http
+```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### CLI
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+```bash
+snmp-browser -get -host 1.1.1.1 -oids 1.3.6.1.2.1.1.5.0
+snmp-browser -get -host 1.1.1.1 -oids 1.3.6.1.2.1.1.1.0,1.3.6.1.2.1.1.4.0,1.3.6.1.2.1.1.3.0
+snmp-browser -get -host 1.1.1.1 -oids 1.3.6.1.2.1.1.5.0 -port 161 -retries 3 -timeout 10 -verbose -version 2c
 
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
-
+snmp-browser -walk -host 10.24.16.69 -oids 1.3.6.1.2.1.2.2.1.5
+snmp-browser -walk -host 10.24.16.69 -oids 1.3.6.1.2.1.2.2.1.5,1.3.6.1.2.1.31.1.1.1.15
+```

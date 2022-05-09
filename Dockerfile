@@ -1,9 +1,9 @@
-FROM node:16 AS frontend-builder
+FROM node:18 AS frontend-builder
 WORKDIR /frontend
 COPY ./frontend .
 RUN make build
 
-FROM golang:1.17-alpine as server-builder
+FROM golang:1.18-alpine as server-builder
 WORKDIR /server
 COPY ./server/golang .
 RUN apk add make
