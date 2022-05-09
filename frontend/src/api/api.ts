@@ -3,7 +3,16 @@ import {ISearchResults} from "../dto/ISearchResult";
 import baseApiUrl from "../const/constants";
 
 const httpSnmpRequest = (request: ISearchForm): Promise<ISearchResults> => {
-    const url = baseApiUrl + "/snmp/" + request.method
+
+    let url = "";
+
+    if (baseApiUrl[baseApiUrl.length - 1] === "/") {
+        url = baseApiUrl + "snmp/" + request.method
+    } else {
+        url = baseApiUrl + "/snmp/" + request.method
+    }
+
+    console.log(url)
 
     const requestHeaders: HeadersInit = new Headers();
     requestHeaders.set('Content-Type', 'application/json');
