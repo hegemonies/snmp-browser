@@ -10,6 +10,8 @@
     - [Web](#web)
     - [CLI](#cli)
 
+![](media/screenshot-preview.png)
+
 ## Docker hub
 
 https://hub.docker.com/repository/docker/hegemonies/snmp-browser
