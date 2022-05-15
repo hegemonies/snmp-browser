@@ -5,7 +5,7 @@ build-all:
 	make -C server/golang build
 
 remove-binary:
-	sudo rm /usr/local/bin/sb
+	sudo rm -f /usr/local/bin/sb
 
 install: build-all remove-binary
 	sudo cp server/golang/bin/snmp-browser /usr/local/bin/.
