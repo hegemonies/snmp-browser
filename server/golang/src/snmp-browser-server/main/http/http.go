@@ -28,6 +28,7 @@ func Handle(options *app.Options) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/snmp/get", handleSnmpGet)
 	mux.HandleFunc("/snmp/walk", handleSnmpWalk)
+	mux.HandleFunc("/snmp/ping", handleSnmpPing)
 	mux.HandleFunc("/ws", handleWebsocket)
 	mux.Handle("/", http.FileServer(http.Dir("./frontend")))
 
@@ -213,5 +214,47 @@ func handleWebsocket(writer http.ResponseWriter, request *http.Request) {
 		} else {
 			log.Println("error request: not found correct snmp method name")
 		}
+	}
+}
+
+func handleSnmpPing(writer http.ResponseWriter, request *http.Request) {
+	var err error
+
+	decoder := json.NewDecoder(request.Body)
+	var requestBody dto.SnmpPingRequest
+
+	err = decoder.Decode(&requestBody)
+	if err != nil {
+		log.Println("json unmarshal:", err)
+		return
+	}
+
+	log.Printf("receive body: %v, from %v\n", requestBody, request.Host)
+
+	available, err := snmp.PingDefault(
+		requestBody.Hostname,
+	)
+	if err != nil {
+		log.Println("snmp ping:", err)
+		return
+	}
+
+	responseBody := dto.SnmpPingResponse{
+		Available: available,
+	}
+
+	response, err := json.Marshal(responseBody)
+	if err != nil {
+		log.Println("json marshal:", err)
+		return
+	}
+
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Header().Set("Access-Control-Allow-Origin", "*")
+	writer.WriteHeader(http.StatusOK)
+	_, err = writer.Write(response)
+	if err != nil {
+		log.Print("write:", err)
+		return
 	}
 }

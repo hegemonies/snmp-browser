@@ -10,3 +10,7 @@ type SnmpRequest struct {
 	Timeout        int      `json:"timeout"`
 	Retries        int      `json:"retries"`
 }
+
+type SnmpPingRequest struct {
+	Hostname string `json:"hostname"`
+}
