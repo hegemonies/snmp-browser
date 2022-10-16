@@ -11,7 +11,7 @@ func PingDefault(hostname string) (bool, error) {
 	var snmpPort uint16 = 161
 	snmpCommunity := "public"
 	snmpVersion := gosnmp.Version2c
-	timeout := time.Duration(5) * time.Second
+	timeout := time.Duration(500) * time.Millisecond
 	numberRetry := 0
 
 	available, err := Ping(
